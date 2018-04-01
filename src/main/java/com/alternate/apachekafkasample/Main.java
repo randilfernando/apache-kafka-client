@@ -1,27 +1,33 @@
 package com.alternate.apachekafkasample;
 
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
+import com.alternate.apachekafkasample.services.Consumer;
+import com.alternate.apachekafkasample.services.Producer;
 
-import java.util.Arrays;
-import java.util.Properties;
+import java.util.Scanner;
 
 public class Main {
+    private static Consumer consumer;
+    private static Producer producer;
+
+    static {
+        consumer = new Consumer();
+        producer = new Producer();
+    }
+
     public static void main(String[] args) {
-        Properties props = new Properties();
-        props.put("bootstrap.servers", "localhost:9092");
-        props.put("group.id", "test");
-        props.put("enable.auto.commit", "true");
-        props.put("auto.commit.interval.ms", "1000");
-        props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
-        consumer.subscribe(Arrays.asList("order-created", "item-added", "order-finalized"));
-        while (true) {
-            ConsumerRecords<String, String> records = consumer.poll(100);
-            for (ConsumerRecord<String, String> record : records)
-                System.out.printf("order-created: %s\n", record.value());
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Select mode (1 - Producer 2- Consumer)");
+        System.out.print("Enter selection (1/2): ");
+
+        String mode = scanner.nextLine();
+
+        if ("1".equals(mode)) {
+            producer.start();
+        } else if ("2".equals(mode)) {
+            consumer.start();
+        } else {
+            throw new UnsupportedOperationException("invalid choice");
         }
     }
 }
