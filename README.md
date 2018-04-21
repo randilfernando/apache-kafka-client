@@ -1,5 +1,5 @@
-# Apache Kafka Sample
-sample project to learn and test apache kafka
+# Apache Kafka Client
+Sample apache kafka producer and consumer
 
 # Run sample project
 1. Run `mvn clean package` to compile and to create jar file or use precompiled version in `bin/`
