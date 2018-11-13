@@ -9,9 +9,9 @@ import java.util.Scanner;
 public class Producer {
     private KafkaProducer<String, String> producer;
 
-    public Producer() {
+    public Producer(String bootstrapString) {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "localhost:9092");
+        props.put("bootstrap.servers", bootstrapString);
         props.put("acks", "all");
         props.put("retries", 0);
         props.put("batch.size", 16384);

@@ -11,9 +11,9 @@ import java.util.Scanner;
 public class Consumer {
     private KafkaConsumer<String, String> consumer;
 
-    public Consumer() {
+    public Consumer(String bootstrapString) {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "localhost:9092");
+        props.put("bootstrap.servers", bootstrapString);
         props.put("group.id", "test");
         props.put("enable.auto.commit", "true");
         props.put("auto.commit.interval.ms", "1000");
@@ -23,10 +23,10 @@ public class Consumer {
     }
 
     public void start() {
-        System.out.println("============================== Producer started ==============================");
+        System.out.println("============================== Consumer started ==============================");
 
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter event names (separated by space): ");
+        System.out.print("Enter topic names (separated by space): ");
         String input = scanner.nextLine();
         consumer.subscribe(Arrays.asList(input.split(" ")));
 
