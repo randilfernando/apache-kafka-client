@@ -5,6 +5,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -26,15 +27,18 @@ public class Consumer {
         System.out.println("============================== Consumer started ==============================");
 
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter topic names (separated by space): ");
+        System.out.print("Enter topic name: ");
         String input = scanner.nextLine();
-        consumer.subscribe(Arrays.asList(input.split(" ")));
+        consumer.subscribe(Collections.singleton(input));
 
         System.out.println("Listening...");
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(100);
-            for (ConsumerRecord<String, String> record : records)
-                System.out.printf("%s: %s\n", record.topic(), record.value());
+            for (ConsumerRecord<String, String> record : records) {
+                System.out.printf("Key: %s", record.key());
+                System.out.printf("Value: %s\n", record.value());
+                System.out.println("==============================================================================");
+            }
         }
     }
 }

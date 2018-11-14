@@ -27,12 +27,16 @@ public class Producer {
         System.out.println("============================== Producer started ==============================");
 
         Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter topic: ");
+        String topic = scanner.nextLine();
+
         while (true) {
-            System.out.print("Enter topic: ");
-            String topic = scanner.nextLine();
-            System.out.print("Enter content: ");
-            String content = scanner.nextLine();
-            this.producer.send(new ProducerRecord<>(topic, content));
+            System.out.print("Enter key: ");
+            String key = scanner.nextLine();
+            System.out.print("Enter value: ");
+            String value = scanner.nextLine();
+            this.producer.send(new ProducerRecord<>(topic, key, value));
             this.producer.flush();
         }
     }
