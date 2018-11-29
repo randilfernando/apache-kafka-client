@@ -7,7 +7,7 @@ import java.util.Properties;
 import java.util.Scanner;
 
 public class Producer {
-    private KafkaProducer<String, String> producer;
+    private final KafkaProducer<String, String> producer;
 
     public Producer(String bootstrapString) {
         Properties props = new Properties();
@@ -32,12 +32,14 @@ public class Producer {
         String topic = scanner.nextLine();
 
         while (true) {
+            System.out.println("==============================================================================");
             System.out.print("Enter key: ");
             String key = scanner.nextLine();
             System.out.print("Enter value: ");
             String value = scanner.nextLine();
             this.producer.send(new ProducerRecord<>(topic, key, value));
             this.producer.flush();
+            System.out.println("================================ Record sent =================================");
         }
     }
 }

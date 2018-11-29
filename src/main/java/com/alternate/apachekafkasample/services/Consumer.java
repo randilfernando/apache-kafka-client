@@ -4,13 +4,12 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Properties;
 import java.util.Scanner;
 
 public class Consumer {
-    private KafkaConsumer<String, String> consumer;
+    private final KafkaConsumer<String, String> consumer;
 
     public Consumer(String bootstrapString) {
         Properties props = new Properties();
@@ -31,10 +30,11 @@ public class Consumer {
         String input = scanner.nextLine();
         consumer.subscribe(Collections.singleton(input));
 
-        System.out.println("Listening...");
+        System.out.println("============================== Start listening ===============================");
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(100);
             for (ConsumerRecord<String, String> record : records) {
+                System.out.println("==============================================================================");
                 System.out.printf("Key: %s", record.key());
                 System.out.printf("Value: %s\n", record.value());
                 System.out.println("==============================================================================");
