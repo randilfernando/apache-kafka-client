@@ -13,17 +13,16 @@ public class Main {
         System.out.print("Enter bootstrap string: ");
         String bootstrapString = scanner.nextLine();
 
-        Consumer consumer = new Consumer(bootstrapString);
-        Producer producer = new Producer(bootstrapString);
-
         System.out.println("Select mode (1 - Producer 2 - Consumer)");
         System.out.print("Enter selection (1/2): ");
 
         String mode = scanner.nextLine();
 
         if ("1".equals(mode)) {
+            Producer producer = new Producer(bootstrapString);
             producer.start();
         } else if ("2".equals(mode)) {
+            Consumer consumer = new Consumer(bootstrapString);
             consumer.start();
         } else {
             throw new UnsupportedOperationException("invalid choice");

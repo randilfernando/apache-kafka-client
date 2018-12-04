@@ -35,7 +35,7 @@ public class Consumer {
             ConsumerRecords<String, String> records = consumer.poll(100);
             for (ConsumerRecord<String, String> record : records) {
                 System.out.println("==============================================================================");
-                System.out.printf("Key: %s", record.key());
+                System.out.printf("Key: %s\n", record.key());
                 System.out.printf("Value: %s\n", record.value());
                 System.out.println("==============================================================================");
             }
